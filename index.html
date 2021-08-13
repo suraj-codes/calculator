@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spartan&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      * {
+        margin: 0;
+      }
+      body {
+        font-family: "Spartan", sans-serif;
+        font-weight: 700;
+      }
+      .themeone {
+        background: hsl(222, 26%, 31%);
+      }
+      .themeone .header h4,
+      .themeone .toggle h6,
+      .themeone .switch-toggle input + label,
+      .themeone .results h3,
+      .themeone .del,
+      .themeone .reset,
+      .themeone .equal {
+        color: #fff;
+      }
+      .themeone .switch-toggle,
+      .themeone .keypad {
+        background: hsl(223, 31%, 20%);
+      }
+      .themeone .switch-toggle input:checked + label {
+        background: hsl(6, 63%, 50%);
+      }
+      .themeone .results {
+        background: hsl(224, 36%, 15%);
+      }
+      .themeone .row h3 {
+        box-shadow: 0px 5px hsl(28, 16%, 65%);
+        background-color: hsl(30, 25%, 89%);
+      }
+      .themeone .row h3:active {
+        background-color: hsl(30, 25%, 89%);
+      }
+      .themeone .del,
+      .themeone .reset {
+        background-color: hsl(225, 21%, 49%) !important;
+        box-shadow: 0 5px hsl(224, 28%, 35%) !important;
+      }
+      .themeone .equal {
+        background: hsl(6, 63%, 50%) !important;
+        box-shadow: 0 5px hsl(6, 70%, 34%) !important;
+      }
+
+      .themetwo {
+        background: hsl(0, 0%, 90%);
+      }
+      .themetwo .header h4,
+      .themetwo .toggle h6,
+      .themetwo .switch-toggle input + label,
+      .themetwo .results h3 {
+        color: hsl(60, 10%, 19%);
+      }
+
+      .themetwo .del,
+      .themetwo .reset,
+      .themetwo .equal {
+        color: #fff;
+      }
+      .themetwo .switch-toggle,
+      .themetwo .keypad {
+        background: hsl(0, 5%, 81%);
+      }
+      .themetwo .switch-toggle input:checked + label {
+        background: hsl(25, 98%, 40%);
+      }
+      .themetwo .results {
+        background: hsl(0, 0%, 93%);
+      }
+      .themetwo .row h3 {
+        box-shadow: 0px 5px hsl(35, 11%, 61%);
+
+        background-color: hsl(45, 7%, 89%);
+      }
+      .themetwo .row h3:active {
+        background-color: hsl(30, 25%, 89%);
+      }
+      .themetwo .del,
+      .themetwo .reset {
+        box-shadow: 0px 5px hsl(185, 58%, 25%) !important;
+
+        background-color: hsl(185, 42%, 37%) !important;
+      }
+      .themetwo .equal {
+        background: hsl(25, 98%, 40%) !important;
+        box-shadow: 0 5px hsl(25, 99%, 27%) !important;
+      }
+
+      .themethree {
+        background: hsl(268, 75%, 9%);
+      }
+      .themethree .header h4,
+      .themethree .toggle h6,
+      .themethree .switch-toggle input + label,
+      .themethree .results h3,
+      .themethree .keypad h3 {
+        color: hsl(52, 100%, 62%);
+      }
+
+      .themethree .del,
+      .themethree .reset {
+        color: #fff !important;
+      }
+
+      .themethree .equal {
+        color: hsl(198, 20%, 13%) !important;
+      }
+      .themethree .switch-toggle,
+      .themethree .keypad {
+        background: hsl(268, 71%, 12%);
+      }
+      .themethree .switch-toggle input:checked + label {
+        background: hsl(25, 98%, 40%);
+      }
+      .themethree .results {
+        background: hsl(268, 71%, 12%);
+      }
+      .themethree .row h3 {
+        box-shadow: 0px 5px hsl(290, 70%, 36%);
+
+        background-color: hsl(268, 47%, 21%);
+      }
+      .themethree .row h3:active {
+        background-color: hsl(30, 25%, 89%);
+      }
+      .themethree .del,
+      .themethree .reset {
+        box-shadow: 0px 5px hsl(285, 91%, 52%) !important;
+
+        background-color: hsl(281, 89%, 26%) !important;
+      }
+      .themethree .equal {
+        background: hsl(176, 100%, 44%) !important;
+        box-shadow: 0 5px hsl(177, 92%, 70%) !important;
+      }
+
+      .main__container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 25%;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+      }
+      .header h4 {
+        font-size: x-large;
+      }
+      .toggle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .toggle h6 {
+        margin-right: 1.5rem;
+        font-size: xx-small;
+        text-transform: uppercase;
+      }
+
+      .toggle__header {
+        margin-top: -1.2rem;
+        display: flex;
+      }
+      .toggle__header h6 {
+        margin: 0.1rem 0.32rem;
+      }
+      .switch-toggle {
+        float: left;
+        border-radius: 50px;
+        padding: 3px;
+      }
+      .switch-toggle input {
+        position: absolute;
+        opacity: 0;
+      }
+      .switch-toggle input + label {
+        padding: 7px;
+        float: left;
+        cursor: pointer;
+      }
+      .switch-toggle input:checked + label {
+        border-radius: 50px;
+      }
+      .results {
+        width: 95%;
+        height: 8vh;
+        border-radius: 10px;
+        padding: 2vh;
+        margin: 1rem 0;
+        display: flex;
+      }
+      .results h3 {
+        font-size: xx-large;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        overflow: hidden;
+      }
+      .keypad {
+        padding: 0.5rem;
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .row {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .row h3 {
+        width: 5rem;
+        height: 3rem;
+        font-size: 32px;
+        margin: 0.7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        text-transform: uppercase;
+      }
+      .row h3:active {
+        box-shadow: none !important;
+        margin-top: 1.5rem !important;
+      }
+      .row h3:hover {
+        cursor: pointer;
+      }
+      .del,
+      .reset {
+        font-size: large !important;
+      }
+
+      .row__five h3 {
+        width: 10rem;
+      }
+      @media screen and (max-width: 1080px) {
+        .container {
+          width: 40%;
+        }
+      }
+      @media screen and (max-width: 870px) {
+        .container {
+          width: 50%;
+        }
+      }
+      @media screen and (max-width: 540px) {
+        .container {
+          width: 70%;
+        }
+      }
+      @media screen and (max-width: 380px) {
+        .container {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main" class="themeone main__container">
+      <div class="container">
+        <div class="header">
+          <h4>calc</h4>
+          <div class="toggle">
+            <h6>theme</h6>
+            <div class="toogle__container">
+              <div class="toggle__header">
+                <h6>1</h6>
+                <h6>2</h6>
+                <h6>3</h6>
+              </div>
+              <div class="switch-toggle switch-3 switch-candy">
+                <input
+                  onchange="themechange()"
+                  id="on"
+                  name="state-d"
+                  value="themeone"
+                  type="radio"
+                  checked="true"
+                />
+                <label for="on" onclick=""></label>
+
+                <input
+                  onchange="themechange()"
+                  id="na"
+                  name="state-d"
+                  value="themetwo"
+                  type="radio"
+                />
+                <label for="na" class="disabled" onclick=""></label>
+
+                <input
+                  onchange="themechange()"
+                  id="off"
+                  name="state-d"
+                  value="themethree"
+                  type="radio"
+                />
+                <label for="off" onclick=""></label>
+
+                <a></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="results">
+          <h3 id="screen">0</h3>
+        </div>
+        <div class="keypad">
+          <div class="row row__one">
+            <h3 onclick="addkey(7)">7</h3>
+            <h3 onclick="addkey(8)">8</h3>
+            <h3 onclick="addkey(9)">9</h3>
+            <h3 class="del" onclick="dele()">del</h3>
+          </div>
+          <div class="row row__two">
+            <h3 onclick="addkey(4)">4</h3>
+            <h3 onclick="addkey(5)">5</h3>
+            <h3 onclick="addkey(6)">6</h3>
+            <h3 onclick="add()">+</h3>
+          </div>
+          <div class="row row__three">
+            <h3 onclick="addkey(1)">1</h3>
+            <h3 onclick="addkey(2)">2</h3>
+            <h3 onclick="addkey(3)">3</h3>
+            <h3 onclick="min()">-</h3>
+          </div>
+          <div class="row row__four">
+            <h3 onclick="addkey(-1)">.</h3>
+            <h3 onclick="addkey(0)">0</h3>
+            <h3 onclick="div()">/</h3>
+            <h3 onclick="mul()">x</h3>
+          </div>
+          <div class="row row__five">
+            <h3 class="reset" onclick="reset()">reset</h3>
+            <h3 class="equal" onclick="result()">=</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const themechange = () => {
+      const rbs = document.querySelectorAll('input[name="state-d"]');
+      let selectedValue;
+      for (const rb of rbs) {
+        if (rb.checked) {
+          selectedValue = rb.value;
+          break;
+        }
+      }
+      const main = document.getElementById("main");
+      switch (selectedValue) {
+        case "themeone":
+          main.classList.add("themeone");
+          main.classList.remove("themetwo");
+          main.classList.remove("themethree");
+
+          break;
+        case "themetwo":
+          main.classList.add("themetwo");
+          main.classList.remove("themeone");
+          main.classList.remove("themethree");
+
+          break;
+        case "themethree":
+          main.classList.add("themethree");
+          main.classList.remove("themetwo");
+          main.classList.remove("themeone");
+
+          break;
+      }
+    };
+    const code = document.getElementById("screen");
+    let num1;
+    let act;
+    const addkey = (key) => {
+      if (code.innerText === "0") {
+        if (key < 0) {
+        } else {
+          code.innerText = key;
+        }
+      } else {
+        if (key === -1) {
+          if (code.innerText.includes(".")) {
+          } else {
+            code.innerText = code.innerText + ".";
+          }
+        } else {
+          code.innerText = parseFloat(code.innerText + key);
+        }
+      }
+    };
+    const dele = () => {
+      if (code.innerText.length === 1) {
+        code.innerText = "0";
+      } else {
+        code.innerText = code.innerText.slice(0, -1);
+      }
+    };
+    const reset = () => {
+      code.innerText = "0";
+      num1 = undefined;
+    };
+    const add = () => {
+      if (code.innerText > 0) {
+        num1 = parseFloat(code.innerText);
+        act = "add";
+        code.innerText = "0";
+      }
+    };
+    const min = () => {
+      if (code.innerText > 0) {
+        num1 = parseFloat(code.innerText);
+        act = "min";
+        code.innerText = "0";
+      }
+    };
+    const mul = () => {
+      if (code.innerText > 0) {
+        num1 = parseFloat(code.innerText);
+        act = "mul";
+        code.innerText = "0";
+      }
+    };
+    const div = () => {
+      if (code.innerText > 0) {
+        num1 = parseFloat(code.innerText);
+        act = "div";
+        code.innerText = "0";
+      }
+    };
+    const result = () => {
+      if (num1) {
+        switch (act) {
+          case "add":
+            code.innerText = num1 + parseFloat(code.innerText);
+            break;
+          case "min":
+            code.innerText = num1 - parseFloat(code.innerText);
+            break;
+          case "mul":
+            code.innerText = num1 * parseFloat(code.innerText);
+            break;
+          case "div":
+            code.innerText = num1 / parseFloat(code.innerText);
+            break;
+          default:
+            code.innerText = "Invalid Input";
+        }
+      }
+    };
+  </script>
+</html>
